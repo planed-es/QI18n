@@ -21,3 +21,6 @@ add_library(QI18n SHARED
 target_link_libraries(QI18n PRIVATE Qt${QT_VERSION_MAJOR}::Core)
 
 target_compile_definitions(QI18n PRIVATE QI18N_LIBRARY)
+
+install(FILES qi18n.h QI18n_global.h DESTINATION include/)
+install(TARGETS QI18n LIBRARY DESTINATION lib)
