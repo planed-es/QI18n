@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.14)
 
-project(QI18n LANGUAGES CXX)
+project(QI18n
+  LANGUAGES CXX
+  VERSION 1.0.0)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOUIC ON)
@@ -12,15 +14,21 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core)
 
-add_library(QI18n SHARED
+message("Using Qt${QT_VERSION_MAJOR}")
+
+set(TARGET_NAME Qt${QT_VERSION_MAJOR}I18n)
+
+add_library(${TARGET_NAME} SHARED
   QI18n_global.h
   qi18n.cpp
   qi18n.h
 )
 
-target_link_libraries(QI18n PRIVATE Qt${QT_VERSION_MAJOR}::Core)
+target_link_libraries(${TARGET_NAME} PRIVATE Qt${QT_VERSION_MAJOR}::Core)
+target_compile_definitions(${TARGET_NAME} PRIVATE QI18N_LIBRARY)
 
-target_compile_definitions(QI18n PRIVATE QI18N_LIBRARY)
+configure_file(QI18n.pc.in Qt${QT_VERSION_MAJOR}I18n.pc @ONLY)
 
 install(FILES qi18n.h QI18n_global.h DESTINATION include/)
-install(TARGETS QI18n LIBRARY DESTINATION lib)
+install(TARGETS ${TARGET_NAME} LIBRARY DESTINATION lib)
+install(FILES ${CMAKE_BINARY_DIR}/Qt${QT_VERSION_MAJOR}I18n.pc DESTINATION lib/pkgconfig)
