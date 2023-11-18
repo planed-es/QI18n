@@ -31,4 +31,4 @@ configure_file(QI18n.pc.in Qt${QT_VERSION_MAJOR}I18n.pc @ONLY)
 
 install(FILES qi18n.h QI18n_global.h DESTINATION include/)
 install(TARGETS ${TARGET_NAME} LIBRARY DESTINATION lib)
-install(FILES ${CMAKE_BINARY_DIR}/Qt${QT_VERSION_MAJOR}I18n.pc DESTINATION lib/pkgconfig)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/Qt${QT_VERSION_MAJOR}I18n.pc DESTINATION lib/pkgconfig)
